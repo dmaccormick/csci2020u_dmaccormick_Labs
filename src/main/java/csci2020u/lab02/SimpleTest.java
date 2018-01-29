@@ -1,7 +1,36 @@
-class SimpleTest
+//class SimpleTest
+//{
+//	public static void main(String[] args)
+//	{
+//		System.out.println("Hello World!");
+//		System.out.println("This is run from the command line!");
+//	}
+//}
+
+import java.io.*;
+import org.apache.commons.csv.*;
+
+public class SimpleTest 
 {
-	public static void main(String[] args)
+	public static void main(String[] args) 
 	{
-		System.out.println("Hello World!");
+		try 
+		{
+			Reader in = new FileReader("data.csv");
+			Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader("First Name", "Last Name", "SID", "Grade").parse(in);
+
+			for (CSVRecord record: records) 
+			{
+				String lastName = record.get("Last Name");
+				String firstName = record.get("First Name");
+				String grade = record.get("Grade");
+				
+				System.out.println(firstName + " " + lastName + "(" + grade + ")"); 
+			} 
+		}
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 }
